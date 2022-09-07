@@ -23,7 +23,7 @@ main {
 
 .display {
     background-color: bisque;
-    width: 100px;
+    width: 330px;
     height: 100px;
     margin-bottom: 25px;
 }
@@ -36,22 +36,21 @@ main {
 }
 
 .row {
-    width: 100%;
+    width: 330px;
     display: flex;
     justify-content: space-between;
 }
 
-.button#clear {
-
-    align-items: center;
-}
-
-.button {
+.button.number,
+.button.operator,
+.button#point,
+.button#equals {
     background-color: aliceblue;
-    min-width: 70px;
+    min-width: 22%;
     min-height: 50px;
 }
 
 .button.undo {
-    min-width: 163px;
+    min-width: 48%;
+    min-height: 50px;
 }
