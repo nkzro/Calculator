@@ -11,6 +11,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        return "Undefined";
+    }
     return a/b;
 }
 
@@ -32,3 +35,4 @@ function operate (operator, a, b) {
     }
     return operation;
 }
+

@@ -13,7 +13,7 @@ main {
 
 .calculator {
     background-color: aqua;
-    height: 500px;
+    height: auto;
     width: 350px;
     padding: 25px;
     display: flex;
@@ -51,6 +51,7 @@ main {
 }
 
 .button.undo {
+    background-color: aliceblue;
     min-width: 48%;
     min-height: 50px;
 }
