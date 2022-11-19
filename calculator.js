@@ -3,9 +3,8 @@ const numbers = document.querySelectorAll('.button.number');
 
 numbers.forEach(number => {
     number.addEventListener('click', () => {
-        display.textContent = number.textContent;
+        display.textContent += number.textContent;
     })
-    console.log(number.textContent)
 });
 
 //Operations needed for basic arithmetic.
