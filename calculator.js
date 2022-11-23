@@ -9,10 +9,12 @@ numbers.forEach(number => {
     })
 });
 
+//Deletes the last element when you click the delete button
 deleteBtn.addEventListener('click', () => {
     display.textContent = display.textContent.slice(0, -1);
 })
 
+//Clears the display, leaving it blank.
 clearBtn.addEventListener('click', () => {
     display.textContent = null;
 })
