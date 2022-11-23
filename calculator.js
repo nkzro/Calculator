@@ -1,11 +1,17 @@
 const display = document.querySelector('.display');
 const numbers = document.querySelectorAll('.button.number');
+const deleteBtn = document.querySelector('.button#delete');
+const clearBtn = document.querySelector('.button#clear');
 
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         display.textContent += number.textContent;
     })
 });
+
+deleteBtn.addEventListener('click', ()=> {
+    display.textContent = display.textContent.slice(0, -1);
+})
 
 //Operations needed for basic arithmetic.
 function add(a, b) {
