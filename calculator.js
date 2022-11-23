@@ -9,8 +9,12 @@ numbers.forEach(number => {
     })
 });
 
-deleteBtn.addEventListener('click', ()=> {
+deleteBtn.addEventListener('click', () => {
     display.textContent = display.textContent.slice(0, -1);
+})
+
+clearBtn.addEventListener('click', () => {
+    display.textContent = null;
 })
 
 //Operations needed for basic arithmetic.
