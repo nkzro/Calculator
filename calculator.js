@@ -2,6 +2,64 @@ const display = document.querySelector('.display');
 const numbers = document.querySelectorAll('.button.number');
 const deleteBtn = document.querySelector('.button#delete');
 const clearBtn = document.querySelector('.button#clear');
+const operators = document.querySelectorAll('.button.operator');
+
+let firstNumber = '';
+let secondNumber = '';
+let operator = '';
+
+
+//Operations needed for basic arithmetic.
+function add(firstNumber, secondNumber) {
+    return firstNumber + secondNumber;
+}
+
+function subtract(firstNumber, secondNumber) {
+    return firstNumber - secondNumber;
+}
+
+function multiply(firstNumber, secondNumber) {
+    return firstNumber * secondNumber;
+}
+
+function divide(firstNumber, secondNumber) {
+    if (secondNumber === 0) {
+        return "Undefined";
+    }
+    return firstNumber/secondNumber;
+}
+
+// function equation () {
+//     firstNumber = 
+// }
+
+function operate (operator, firstNumber, secondNumber) {
+    let operation;
+    switch (operator) {
+        case '+':
+            operation = add(firstNumber, secondNumber);
+            break;
+        case 'subtract':
+            operation = subtract(firstNumber, secondNumber);
+            break;
+        case 'multiply':
+            operation = multiply(firstNumber, secondNumber);
+            break;
+        case 'divide':
+            operation = divide(firstNumber, secondNumber);
+            break;
+    }
+    return operation;
+}
+
+
+/* Event listeners for buttons */
+
+operators.forEach(sign => {
+    sign.addEventListener('click', () => {
+        operator = sign;
+    })
+});
 
 numbers.forEach(number => {
     number.addEventListener('click', () => {
@@ -18,43 +76,3 @@ deleteBtn.addEventListener('click', () => {
 clearBtn.addEventListener('click', () => {
     display.textContent = null;
 })
-
-//Operations needed for basic arithmetic.
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    if (b === 0) {
-        return "Undefined";
-    }
-    return a/b;
-}
-
-function operate (operator, a, b) {
-    let operation;
-    switch (operator) {
-        case 'add':
-            operation = add(a, b);
-            break;
-        case 'subtract':
-            operation = subtract(a, b);
-            break;
-        case 'multiply':
-            operation = multiply(a, b);
-            break;
-        case 'divide':
-            operation = divide(a, b);
-            break;
-    }
-    return operation;
-}
-
