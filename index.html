@@ -9,40 +9,45 @@
     <title>Document</title>
 </head>
 <body>
-    <main>
-        <div class="calculator">
-            <div class="display" contenteditable data-placeholder="0"></div>
-            <div class="buttons">
-                <div class="row one">
-                    <button class="button undo" id="clear">Clear</button>
-                    <button class="button undo" id="delete">Delete</button>
-                </div>
+    <div class="calculator">
+        <div class="screen">
+            <div class="display" id="result">1234</div>
+            <div class="display" id="workArea">5678</div>
+        </div>
+        <div class="buttons">
+            <div class="undo">
+                <button id="clear">Clear</button>
+                <button id="delete">Delete</button>
+            </div>
+            <div class="numbers">
                 <div class="row two">
-                    <button class="button number" id="seven">7</button>
-                    <button class="button number" id="eight">8</button>
-                    <button class="button number" id="nine">9</button>
-                    <button class="button operator" id="add">+</button>
-                </div>
-                <div class="row three">
-                    <button class="button number" id="four">4</button>
-                    <button class="button number" id="five">5</button>
-                    <button class="button number" id="six">6</button>
-                    <button class="button operator" id="subtract">-</button>
+                    <button id="seven">7</button>
+                    <button id="eight">8</button>
+                    <button id="nine">9</button>
                 </div>
                 <div class="row four">
-                    <button class="button number 1" id="one">1</button>
-                    <button class="button number" id="two">2</button>
-                    <button class="button number" id="three">3</button>
-                    <button class="button operator" id="multiply">x</button>
+                    <button id="four">4</button>
+                    <button id="five">5</button>
+                    <button id="six">6</button>
                 </div>
                 <div class="row five">
-                    <button class="button" id="point">.</button>
-                    <button class="button number" id="0">0</button>
-                    <button class="button evaluate" id="equals">=</button>
-                    <button class="button operator" id="divide">÷</button>
+                    <button id="one">1</button>
+                    <button id="two">2</button>
+                    <button id="three">3</button>
+                </div>
+                <div class="row six">
+                    <button id="point">.</button>
+                    <button id="zero">0</button>
+                    <button id="equals">=</button>
                 </div>
             </div>
+            <div class="operations">
+                <button data-operation id="add">+</button>
+                <button data-operation id="subtract">-</button>
+                <button data-operation id="multiply">x</button>
+                <button data-operation id="divide">÷</button>
+            </div>
         </div>
-    </main>
+    </div>
 </body>
 </html>
