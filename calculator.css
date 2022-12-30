@@ -1,5 +1,5 @@
 body {
-    background-color: gray;
+    background: linear-gradient(58deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -10,23 +10,22 @@ body {
 
 
 .calculator {
-    background-color: aqua;
     height: 75vmin;
     width: 50vmin;
-    padding: 25px;
     display: flex;
     flex-direction: column;
 }
 
 .screen {
-    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding: 10px;
     width: 100%;
     height: 20%;
-    background-color: bisque;
+    background-color: rgba(255, 255, 255, .9);
+    box-sizing: border-box;
 }
 
 .btns {
@@ -51,7 +50,7 @@ body {
 .otherBtns {
     display: flex;
     width: 100%;
-    height: 60%;
+    height: 80%;
 }
 
 .numberBtns {
@@ -69,7 +68,6 @@ body {
 
 .row {
     display: flex;
-    justify-content: space-evenly;
     height: 100%;
 }
 
@@ -79,6 +77,16 @@ body {
 }
 
 button {
-    background-color: aliceblue;
+    background-color: rgba(0, 0, 0, .75);
     height: 100%;
+    cursor: pointer;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, .9);
+    border: 1px solid black;
+    outline: none;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, .9);
+    font-size: 2.5rem;
 }
