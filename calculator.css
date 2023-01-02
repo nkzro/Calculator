@@ -23,9 +23,21 @@ body {
     justify-content: space-around;
     padding: 10px;
     width: 100%;
-    height: 20%;
+    height: 25%;
     background-color: rgba(255, 255, 255, .9);
     box-sizing: border-box;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.screen #previous {
+    color: rgba(0, 0, 0, .5);
+    font-size: 1.5rem;
+}
+
+.screen #current {
+    color: rgba(0, 0, 0);
+    font-size: 2.5rem;
 }
 
 .btns {
@@ -87,6 +99,5 @@ button {
 }
 
 button:hover {
-    background-color: rgba(0, 0, 0, .9);
-    font-size: 2.5rem;
+    background-color: rgba(0, 0, 0, .7);
 }
