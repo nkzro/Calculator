@@ -99,9 +99,9 @@ operationBtns.forEach(btn => {
 
 equalsBtn.addEventListener('click', () => {
      operate(operator, currentNumber, previousNumber);
-     previousDisplay.textContent += ' ' + currentDisplay.textContent;
+     previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
+     previousNumber = result;
      currentDisplay.textContent = result;
-     currentNumber = currentDisplay.textContent;
      isCurrentDisplayClear = false;
 })
 
