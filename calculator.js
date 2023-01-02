@@ -6,12 +6,13 @@ const equalsBtn = document.querySelector('[data-equals]');
 const previousDisplay = document.querySelector('[data-previous]');
 const currentDisplay = document.querySelector('[data-current]');
 
-let currentNumber = currentDisplay.textContent;
+let currentNumber = '';
 let previousNumber = '';
 let operator = '';
 let result = null;
 let hasPoint = false;
 let isCurrentDisplayClear = false;
+let isFirstOperator = true;
 
 //Operations needed for basic arithmetic.
 function add(currentNumber, previousNumber) {
@@ -61,16 +62,26 @@ function appendNumber(number) {
     else if (number.textContent === '.' && hasPoint) {
         return;
     }
+    currentNumber += number.textContent;
     currentDisplay.textContent += number.textContent;
-    currentNumber = currentDisplay.textContent;
 }
 
 function setOperator (operation) {
-    operator = operation.textContent;
-    previousNumber = currentNumber;
-    previousDisplay.textContent = currentNumber + ' ' + operator;
-    isCurrentDisplayClear = false; 
-    hasPoint = false;
+    if (!isFirstOperator) {
+        evaluate();
+        operator = operation.textContent;
+        previousDisplay.textContent = previousNumber + ' ' + operator;
+    }
+    else {
+        operator = operation.textContent;
+        previousDisplay.textContent = currentNumber + ' ' + operator;
+        previousNumber = previousDisplay.textContent.slice(0, -2);
+        clearCurrentDisplay();
+        currentNumber = '';
+        hasPoint = false;
+        isFirstOperator = false;
+    }
+    currentNumber = '';
 }
 
 function clearCurrentDisplay () {
@@ -82,11 +93,13 @@ deleteBtn.addEventListener('click', () => {
     currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
     currentNumber = currentDisplay.textContent;
 })
+
 clearBtn.addEventListener('click', () => {
-    previousDisplay.textContent = null;
+    previousDisplay.textContent = '';
     currentDisplay.textContent = '0';
-    currentNumber = currentDisplay.textContent;
+    currentNumber = '';
     isCurrentDisplayClear = false;
+    isFirstOperator = true;
 })
 
 numberBtns.forEach(btn => {
@@ -94,16 +107,25 @@ numberBtns.forEach(btn => {
 })
 
 operationBtns.forEach(btn => {
-    btn.addEventListener('click', () => setOperator(btn))
+    btn.addEventListener('click', () => {
+        setOperator(btn)
+    })
 })
 
-equalsBtn.addEventListener('click', () => {
-     operate(operator, currentNumber, previousNumber);
-     previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
-     previousNumber = result;
-     currentDisplay.textContent = result;
-     isCurrentDisplayClear = false;
-})
+equalsBtn.addEventListener('click', () => evaluate());
+
+function evaluate () {
+    if (currentNumber === '') {
+        return;
+    }
+    else {
+        operate(operator, currentNumber, previousNumber);
+        previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
+        previousNumber = result;
+        currentDisplay.textContent = result;
+        isCurrentDisplayClear = false;
+    }
+}
 
 // const display = document.querySelector('.display');
 // const numbers = document.querySelectorAll('.button.number');
