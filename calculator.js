@@ -56,7 +56,6 @@ function operate (operator, currentNumber, previousNumber) {
 
 function appendNumber(number) {
     currentNumber = '';
-    // isFirstOperator = true;
     if (!isCurrentDisplayClear) clearCurrentDisplay();
     if (number.textContent === '.' && !hasPoint) {
         hasPoint = true;
@@ -64,8 +63,12 @@ function appendNumber(number) {
     else if (number.textContent === '.' && hasPoint) {
         return;
     }
-    currentNumber += number.textContent;
+    if (isFirstOperator) {
+        clearPreviousDisplay();
+        previousNumber = '';
+    }
     currentDisplay.textContent += number.textContent;
+    currentNumber += currentDisplay.textContent;
 }
 
 function setOperator (operation) {
@@ -80,7 +83,7 @@ function setOperator (operation) {
         currentNumber = currentDisplay.textContent;
         previousDisplay.textContent = currentNumber + ' ' + operator;
         previousNumber = previousDisplay.textContent.slice(0, -2);
-        currentDisplay.textContent = '';
+        // currentDisplay.textContent = '';
         clearCurrentDisplay();
         hasPoint = false;
         isFirstOperator = false;
@@ -91,6 +94,10 @@ function setOperator (operation) {
 function clearCurrentDisplay () {
     currentDisplay.textContent = '';
     isCurrentDisplayClear = true;
+}
+
+function clearPreviousDisplay () {
+    previousDisplay.textContent = '';
 }
 
 deleteBtn.addEventListener('click', () => {
@@ -110,6 +117,7 @@ clearBtn.addEventListener('click', () => {
 
 numberBtns.forEach(btn => {
     btn.addEventListener('click', () => appendNumber(btn))
+    // isFirstOperator = true;
 })
 
 operationBtns.forEach(btn => {
@@ -119,22 +127,24 @@ operationBtns.forEach(btn => {
 })
 
 equalsBtn.addEventListener('click', () => {
-    evaluate()
-    isFirstOperator = true;
-})
-
-function evaluate () {
-    if (currentNumber === '' || operator === '') {
+    if (currentNumber === '' || operator === '' || previousNumber === '') {
         return;
     }
     else {
-        operate(operator, currentNumber, previousNumber);
-        previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
-        previousNumber = result;
-        currentDisplay.textContent = result;
-        isCurrentDisplayClear = false;
+        evaluate()
+        isFirstOperator = true;
     }
+})
+
+function evaluate () {
+    operate(operator, currentNumber, previousNumber);
+    previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
+    previousNumber = result;
+    currentDisplay.textContent = result;
+    isCurrentDisplayClear = false;
 }
+
+/* Cannot do negative numbers */
 
 // const display = document.querySelector('.display');
 // const numbers = document.querySelectorAll('.button.number');
