@@ -51,7 +51,7 @@ function operate (operator, currentNumber, previousNumber) {
             result = divide(currentNumberFloat, previousNumberFloat);
             break;
     }
-    return result;
+    return Math.round(result * 1000) / 1000;
 }
 
 function appendNumber(number) {
@@ -100,12 +100,7 @@ function clearPreviousDisplay () {
     previousDisplay.textContent = '';
 }
 
-deleteBtn.addEventListener('click', () => {
-    currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
-    currentNumber = currentDisplay.textContent;
-})
-
-clearBtn.addEventListener('click', () => {
+function clear () {
     previousDisplay.textContent = '';
     currentDisplay.textContent = '0';
     currentNumber = '';
@@ -113,7 +108,14 @@ clearBtn.addEventListener('click', () => {
     result = null;
     isCurrentDisplayClear = false;
     isFirstOperator = true;
+}
+
+deleteBtn.addEventListener('click', () => {
+    currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+    currentNumber = currentDisplay.textContent;
 })
+
+clearBtn.addEventListener('click', () => clear());
 
 numberBtns.forEach(btn => {
     btn.addEventListener('click', () => appendNumber(btn))
@@ -127,7 +129,7 @@ operationBtns.forEach(btn => {
 })
 
 equalsBtn.addEventListener('click', () => {
-    if (currentNumber === '' || operator === '' || previousNumber === '') {
+    if (currentNumber === '' || operator === '' || previousNumber === '' || result  === 'Undefined') {
         return;
     }
     else {
@@ -137,11 +139,16 @@ equalsBtn.addEventListener('click', () => {
 })
 
 function evaluate () {
-    operate(operator, currentNumber, previousNumber);
-    previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
-    previousNumber = result;
-    currentDisplay.textContent = result;
-    isCurrentDisplayClear = false;
+    if (currentNumber === '' || operator === '' || previousNumber === '' || result === 'Undefined') {
+        return;
+    }
+    else {
+        let roundedResult = operate(operator, currentNumber, previousNumber);
+        previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
+        previousNumber = roundedResult;
+        currentDisplay.textContent = roundedResult;
+        isCurrentDisplayClear = false;
+    }
 }
 
 /* Cannot do negative numbers */
