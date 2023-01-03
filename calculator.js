@@ -44,7 +44,7 @@ function operate (operator, currentNumber, previousNumber) {
         case '-':
             result = subtract(currentNumberFloat, previousNumberFloat);
             break;
-        case 'x':
+        case '*':
             result = multiply(currentNumberFloat, previousNumberFloat);
             break;
         case '÷':
@@ -55,6 +55,8 @@ function operate (operator, currentNumber, previousNumber) {
 }
 
 function appendNumber(number) {
+    currentNumber = '';
+    // isFirstOperator = true;
     if (!isCurrentDisplayClear) clearCurrentDisplay();
     if (number.textContent === '.' && !hasPoint) {
         hasPoint = true;
@@ -71,13 +73,15 @@ function setOperator (operation) {
         evaluate();
         operator = operation.textContent;
         previousDisplay.textContent = previousNumber + ' ' + operator;
+        currentDisplay.textContent = '';
     }
     else {
         operator = operation.textContent;
+        currentNumber = currentDisplay.textContent;
         previousDisplay.textContent = currentNumber + ' ' + operator;
         previousNumber = previousDisplay.textContent.slice(0, -2);
+        currentDisplay.textContent = '';
         clearCurrentDisplay();
-        currentNumber = '';
         hasPoint = false;
         isFirstOperator = false;
     }
@@ -98,6 +102,8 @@ clearBtn.addEventListener('click', () => {
     previousDisplay.textContent = '';
     currentDisplay.textContent = '0';
     currentNumber = '';
+    operator = '';
+    result = null;
     isCurrentDisplayClear = false;
     isFirstOperator = true;
 })
@@ -112,10 +118,13 @@ operationBtns.forEach(btn => {
     })
 })
 
-equalsBtn.addEventListener('click', () => evaluate());
+equalsBtn.addEventListener('click', () => {
+    evaluate()
+    isFirstOperator = true;
+})
 
 function evaluate () {
-    if (currentNumber === '') {
+    if (currentNumber === '' || operator === '') {
         return;
     }
     else {
