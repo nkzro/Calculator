@@ -54,50 +54,13 @@ function operate (operator, currentNumber, previousNumber) {
     return Math.round(result * 1000) / 1000;
 }
 
-function appendNumber(number) {
-    currentNumber = '';
-    if (!isCurrentDisplayClear) clearCurrentDisplay();
-    if (number.textContent === '.' && !hasPoint) {
-        hasPoint = true;
-    }
-    else if (number.textContent === '.' && hasPoint) {
-        return;
-    }
-    if (isFirstOperator) {
-        clearPreviousDisplay();
-        previousNumber = '';
-    }
-    currentDisplay.textContent += number.textContent;
-    currentNumber += currentDisplay.textContent;
-}
-
-function setOperator (operation) {
-    if (!isFirstOperator) {
-        evaluate();
-        operator = operation.textContent;
-        previousDisplay.textContent = previousNumber + ' ' + operator;
-        currentDisplay.textContent = '';
-    }
-    else {
-        operator = operation.textContent;
-        currentNumber = currentDisplay.textContent;
-        previousDisplay.textContent = currentNumber + ' ' + operator;
-        previousNumber = previousDisplay.textContent.slice(0, -2);
-        // currentDisplay.textContent = '';
-        clearCurrentDisplay();
-        hasPoint = false;
-        isFirstOperator = false;
-    }
-    currentNumber = '';
+function clearPreviousDisplay () {
+    previousDisplay.textContent = '';
 }
 
 function clearCurrentDisplay () {
     currentDisplay.textContent = '';
     isCurrentDisplayClear = true;
-}
-
-function clearPreviousDisplay () {
-    previousDisplay.textContent = '';
 }
 
 function clear () {
@@ -110,6 +73,63 @@ function clear () {
     isFirstOperator = true;
 }
 
+function appendNumber(number) {
+    currentNumber = '';
+    if (!isCurrentDisplayClear) clearCurrentDisplay();
+    if (number.textContent === '.' && !hasPoint) {
+        hasPoint = true;
+    }    
+    else if (number.textContent === '.' && hasPoint) {
+        return;
+    }    
+    if (isFirstOperator) {
+        clearPreviousDisplay();
+        previousNumber = '';
+    }    
+    currentDisplay.textContent += number.textContent;
+    currentNumber += currentDisplay.textContent;
+}    
+
+function setOperator (operation) {
+    if (!isFirstOperator) {
+        evaluate();
+        operator = operation.textContent;
+        previousDisplay.textContent = previousNumber + ' ' + operator;
+        currentDisplay.textContent = '';
+    }    
+    else {
+        operator = operation.textContent;
+        currentNumber = currentDisplay.textContent;
+        previousDisplay.textContent = currentNumber + ' ' + operator;
+        previousNumber = previousDisplay.textContent.slice(0, -2);
+        // currentDisplay.textContent = '';
+        clearCurrentDisplay();
+        hasPoint = false;
+        isFirstOperator = false;
+    }    
+    currentNumber = '';
+}    
+
+function evaluate () {
+    if (currentNumber === '' || operator === '' || previousNumber === '' || result  === 'Undefined') {
+        return;
+    }
+    else {
+        if (currentNumber === '' || operator === '' || previousNumber === '' || result === 'Undefined') {
+            return;
+        }
+        else {
+            let roundedResult = operate(operator, currentNumber, previousNumber);
+            previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
+            previousNumber = roundedResult;
+            currentDisplay.textContent = roundedResult;
+            isCurrentDisplayClear = false;
+        }
+        isFirstOperator = true;
+    }
+}
+
+//Event Listeners
 deleteBtn.addEventListener('click', () => {
     currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
     currentNumber = currentDisplay.textContent;
@@ -118,8 +138,7 @@ deleteBtn.addEventListener('click', () => {
 clearBtn.addEventListener('click', () => clear());
 
 numberBtns.forEach(btn => {
-    btn.addEventListener('click', () => appendNumber(btn))
-    // isFirstOperator = true;
+    btn.addEventListener('click', () => appendNumber(btn));
 })
 
 operationBtns.forEach(btn => {
@@ -129,72 +148,55 @@ operationBtns.forEach(btn => {
 })
 
 equalsBtn.addEventListener('click', () => {
-    if (currentNumber === '' || operator === '' || previousNumber === '' || result  === 'Undefined') {
-        return;
+    evaluate();
+})
+
+
+//Keyboard Support
+window.addEventListener('keydown', (e) => {
+    console.log(e.key);
+    if (
+        e.key === '0' ||
+        e.key === '1' ||
+        e.key === '2' ||
+        e.key === '3' ||
+        e.key === '4' ||
+        e.key === '5' ||
+        e.key === '6' ||
+        e.key === '7' ||
+        e.key === '8' ||
+        e.key === '9' ||
+        e.key === '.'
+        ) {
+            keybaordNumbers (e.key);
     }
-    else {
-        evaluate()
-        isFirstOperator = true;
+    else if (
+        e.key === '+' ||
+        e.key === '-' ||
+        e.key === '*'
+        ) {
+            keyboardOperators (e.key);
+    }
+    else if (e.key === '/') {
+        keyboardOperators('÷');
+    }
+    else if (e.key === '=' || e.key === 'Enter') {
+        evaluate();
     }
 })
 
-function evaluate () {
-    if (currentNumber === '' || operator === '' || previousNumber === '' || result === 'Undefined') {
-        return;
-    }
-    else {
-        let roundedResult = operate(operator, currentNumber, previousNumber);
-        previousDisplay.textContent = previousNumber + ' ' + operator + ' ' + currentNumber + ' =';
-        previousNumber = roundedResult;
-        currentDisplay.textContent = roundedResult;
-        isCurrentDisplayClear = false;
-    }
+function keybaordNumbers (key) {
+    numberBtns.forEach(btn => {
+        if (btn.textContent === key) {
+            btn.click();
+        }
+    })
 }
 
-/* Cannot do negative numbers */
-
-// const display = document.querySelector('.display');
-// const numbers = document.querySelectorAll('.button.number');
-// const deleteBtn = document.querySelector('.button#delete');
-// const clearBtn = document.querySelector('.button#clear');
-// const operators = document.querySelectorAll('.button.operator');
-// const equals = document.querySelector('.button.evaluate');
-
-// let currentNumber = '';
-// let previousNumber = '';
-// let operator = '';
-// let result = '';
-
-// let isOperatorSet = false;
-
-
-// 
-
-// /* Event listeners for buttons */
-
-// function setOperator(sign) {
-//     return operator;
-// }
-
-// numbers.forEach(number => {
-//     number.addEventListener('click', () => {
-//         display.textContent += number.textContent;
-//         currentNumber += number.textContent;
-//         if (number.classList.contains('operator')) {
-//             setOperator(number.textContent);
-//             console.log(operator)
-//             //previousNumber += number.textContent;
-//         }
-//         else if (number.classList.contains('evaluate')){
-//             operate(operator, currentNumber, previousNumber);
-//         }
-//     })
-// });
-
-// function evaluate() {
-//     return operate(operator, currentNumber, previousNumber);
-// }
-
-// //Deletes the last element when you click the delete button
-
-// //Clears the display, leaving it blank.
+function keyboardOperators (key) {
+    operationBtns.forEach(btn => {
+        if (btn.textContent === key) {
+            btn.click();
+        }
+    })
+}
