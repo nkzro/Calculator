@@ -157,7 +157,6 @@ equalsBtn.addEventListener('click', () => {
 
 //Keyboard Support
 window.addEventListener('keydown', (e) => {
-    console.log(e.key);
     if (
         e.key === '0' ||
         e.key === '1' ||
