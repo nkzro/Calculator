@@ -1,6 +1,6 @@
 # Odin's Calculator
 
-This is the final project for The Odin Project's Foundations [pathway](https://www.theodinproject.com/courses/foundations/lessons/calculator).
+This is the final project for The Odin Project's Foundations [pathway](https://www.theodinproject.com/paths/foundations/courses/foundations).
 
 🔗 **Live Preview:** [here](https://artis-dev.github.io/calculator/)
 
