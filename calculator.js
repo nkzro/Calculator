@@ -63,6 +63,11 @@ function clearCurrentDisplay () {
     isCurrentDisplayClear = true;
 }
 
+function del () {
+    currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+    currentNumber = currentDisplay.textContent;
+}
+
 function clear () {
     previousDisplay.textContent = '';
     currentDisplay.textContent = '0';
@@ -129,11 +134,9 @@ function evaluate () {
     }
 }
 
+
 //Event Listeners
-deleteBtn.addEventListener('click', () => {
-    currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
-    currentNumber = currentDisplay.textContent;
-})
+deleteBtn.addEventListener('click', () => del())
 
 clearBtn.addEventListener('click', () => clear());
 
@@ -182,6 +185,12 @@ window.addEventListener('keydown', (e) => {
     }
     else if (e.key === '=' || e.key === 'Enter') {
         evaluate();
+    }
+    else if (e.key === 'Backspace') {
+        del();
+    }
+    else if (e.key === 'Escape') {
+        clear();
     }
 })
 
